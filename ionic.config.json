@@ -1,0 +1,7 @@
+{
+  "name": "traning",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
