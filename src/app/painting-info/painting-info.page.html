@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>painting info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-img alt="Illustrated single work" [src]="paintingObject.primaryImageSmall"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{paintingObject.title}}</ion-card-title>
+      <ion-card-subtitle>{{paintingObject.artistDisplayName}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Art dimension</ion-label>
+        <ion-label>{{paintingObject.dimensions}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Art date</ion-label>
+        <ion-label>{{paintingObject.objectDate}}</ion-label>
+      </ion-item>
+      @if (isLoading) {
+      <ion-spinner></ion-spinner>
+      }
+      @else {
+      @if (objectComments) {
+      <ion-item-divider>
+        <ion-label> Comments ({{objectComments.length }}) </ion-label>
+      </ion-item-divider>
+
+      @for (item of objectComments; track $index) {
+      <ion-item>
+        <ion-label>{{objectComments[$index].creation_date }} - {{objectComments[$index].username}} -
+          {{objectComments[$index].comment}}</ion-label>
+      </ion-item>
+      }
+      } @else {
+      <ion-item>
+        <ion-label>Comments:</ion-label>
+        <ion-label> No comments Found!</ion-label>
+      </ion-item>
+      }
+      }
+      <ion-item-divider>
+        <ion-label> Add your Comments </ion-label>
+      </ion-item-divider>
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+          <ion-item lines="none">
+            <ion-input label="name:" formControlName="username" [errorText]="errorMessage" autocomplete="name"
+              (ionBlur)="inputChange($event)"></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-input label="comment:" formControlName="comment" errorText="Please Enter a valid comment"
+              (ionBlur)="inputChange($event)" autocorrect="on"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-input formControlName="item_id" class="ion-hide" [ngModel]="paintingObject.objectID"></ion-input>
+        <div class="ion-text-center ion-padding-top">
+          <ion-button type="submit" [disabled]="!commentForm.valid">Add Comment</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

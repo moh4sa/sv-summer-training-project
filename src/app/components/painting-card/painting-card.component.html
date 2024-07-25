@@ -1,0 +1,34 @@
+@if (paintingObject) {
+<ion-card>
+  @if (!paintingObject.primaryImageSmall) {
+  <ion-thumbnail>
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+  </ion-thumbnail>
+  } @else {
+  <ion-img alt="Illustrated single work" [src]="paintingObject.primaryImageSmall"></ion-img>
+  }
+  <ion-card-header>
+    <ion-grid [fixed]="true" class="ion-no-padding">
+      <ion-row class="ion-justify-content-between">
+        <ion-col>
+          <ion-note>{{paintingObject.department}}</ion-note>
+          <ion-card-title>{{paintingObject.title}}</ion-card-title>
+          <ion-card-subtitle>{{paintingObject.artistDisplayName.length ? paintingObject.artistDisplayName :
+            'Unknown Artist'}}</ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-end">
+        <ion-col size="auto">
+          @if(currentUrl === '/tabs/home') {
+          <ion-icon name="{{isLiked ? 'heart' : 'heart-outline'}}" size="large" color="primary"
+            (click)="toggleLike(paintingObject.objectID)"></ion-icon>
+          <ion-label color="primary">{{numberOfLikes$ | async}}</ion-label>}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+  <div class="ion-text-center ion-padding-bottom">
+    <ion-button (click)="navigateToPaintingInfo(paintingObject)" color="primary">Show me details</ion-button>
+  </div>
+</ion-card>
+}

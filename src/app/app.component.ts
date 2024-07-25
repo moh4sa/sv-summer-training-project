@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { Component, inject } from '@angular/core';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { IonApp, IonRouterOutlet, Platform } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,18 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  private platform = inject(Platform);
+  constructor() {
+    if (this.platform.is('capacitor')) {
+      this.lockScreenOnPortrait();
+    }
+  }
+
+  /**
+   * function to lock screen orientation on portrait using native plugin
+   * @returns {void}
+   */
+  async lockScreenOnPortrait(): Promise<void> {
+    await ScreenOrientation.lock({ orientation: 'portrait' });
+  }
 }
