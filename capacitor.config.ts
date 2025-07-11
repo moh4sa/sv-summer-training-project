@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'traning',
-  webDir: 'www',
+  webDir: 'www/browser',
   plugins: {
     SplashScreen: {
       launchShowDuration: 3000,

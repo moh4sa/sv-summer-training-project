@@ -19,7 +19,6 @@ import {
   IonItemDivider,
   IonImg,
 } from '@ionic/angular/standalone';
-import { PaintingCardComponent } from '../components/painting-card/painting-card.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import {
@@ -53,7 +52,6 @@ import {
     IonHeader,
     IonTitle,
     IonToolbar,
-    PaintingCardComponent,
     ReactiveFormsModule,
   ],
 })

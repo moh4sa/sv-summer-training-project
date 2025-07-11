@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -8,10 +8,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonButton,
-  IonItem,
   IonLabel,
-  IonCardContent,
   IonSkeletonText,
   IonGrid,
   IonRow,
@@ -33,10 +30,7 @@ import { AsyncPipe } from '@angular/common';
     IonRow,
     IonGrid,
     IonSkeletonText,
-    IonCardContent,
     IonLabel,
-    IonItem,
-    IonButton,
     IonCardSubtitle,
     IonCardTitle,
     IonCardHeader,

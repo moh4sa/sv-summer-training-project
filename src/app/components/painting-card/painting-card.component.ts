@@ -2,21 +2,16 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonCardContent,
   IonButton,
   IonThumbnail,
   IonGrid,
   IonRow,
   IonCol,
   IonIcon,
-  IonSkeletonText,
   IonLabel,
   IonImg,
   IonNote,
@@ -35,20 +30,15 @@ import { ApiService } from 'src/app/services/api.service';
     IonNote,
     IonImg,
     IonLabel,
-    IonSkeletonText,
     IonIcon,
     IonCol,
     IonRow,
     IonGrid,
     IonButton,
-    IonCardContent,
     IonCardSubtitle,
     IonCardTitle,
     IonCardHeader,
     IonCard,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonThumbnail,
     AsyncPipe,
   ],
@@ -56,11 +46,12 @@ import { ApiService } from 'src/app/services/api.service';
 export class PaintingCardComponent implements OnInit {
   isLiked: boolean = false;
   private router = inject(Router);
+  private api = inject(ApiService);
   objectId = input.required<number>();
   paintingObject!: any;
   currentUrl: string = this.router.url;
   numberOfLikes$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  constructor(private api: ApiService) {
+  constructor() {
     addIcons({ heart, heartOutline });
   }
 

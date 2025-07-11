@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -10,7 +10,8 @@ export class ApiService {
   Base_url = 'https://collectionapi.metmuseum.org/public/collection/v1/';
   base_url =
     'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pKSoTbGzFhj5RtoeFQif/';
-  constructor(private http: HttpClient) {
+  private http = inject(HttpClient);
+  constructor() {
     let likesFromStorage = localStorage.getItem('likes');
     if (likesFromStorage) {
       // checks if likesFromStorage is null, undefined, 0, false, NaN
