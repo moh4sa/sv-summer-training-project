@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title> Museum Departments </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list [inset]="true">
+    @for (department of departments; track department) {
+    <ion-item (click)="goToDepartment(department)">
+      <ion-label>{{ department.displayName }}</ion-label>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>

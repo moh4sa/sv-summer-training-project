@@ -1,12 +1,10 @@
 @if (paintingObject) {
 <ion-card>
-  @if (!paintingObject.primaryImageSmall) {
-  <ion-thumbnail>
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-  </ion-thumbnail>
-  } @else {
-  <ion-img alt="Illustrated single work" [src]="paintingObject.primaryImageSmall"></ion-img>
-  }
+  <!-- <img width="400" height="300" [ngSrc]="paintingObject.primaryImageSmall" alt="Illustrated single work"> -->
+  <div style="position: relative; width: 100%; height: 300px;"> 
+    <img [ngSrc]="paintingObject.primaryImageSmall" alt="Illustrated single work" fill priority>
+  </div>
+  <!-- <ion-img alt="Illustrated single work" [src]="paintingObject.primaryImageSmall"></ion-img> -->
   <ion-card-header>
     <ion-grid [fixed]="true" class="ion-no-padding">
       <ion-row class="ion-justify-content-between">
@@ -15,6 +13,9 @@
           <ion-card-title>{{paintingObject.title}}</ion-card-title>
           <ion-card-subtitle>{{paintingObject.artistDisplayName.length ? paintingObject.artistDisplayName :
             'Unknown Artist'}}</ion-card-subtitle>
+          @if (paintingObject.country) {
+            <span>country of origin: {{ paintingObject.country}}</span>
+          }
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-end">

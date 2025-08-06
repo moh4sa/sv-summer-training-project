@@ -23,8 +23,27 @@ export class ApiService {
    * fetch all painting object
    * @returns {Observable} as api response
    */
-  getAllPaintingObjects(): Observable<any> {
-    return this.http.get<any>(`${this.Base_url}search?q=painting`);
+  getAllPaintingObjects(
+    search?: string,
+    includeImages?: boolean,
+    departmentId?: number
+  ): Observable<any> {
+    let url = `${this.Base_url}search?q=${search ? search : 'painting'}`;
+    if (includeImages) {
+      url += '&hasImages=true';
+    }
+    if (departmentId) {
+      url += `&departmentId=${departmentId}`;
+    }
+    return this.http.get<any>(url);
+  }
+
+  /**
+   * fetch departments
+   * @returns {Observable} as api response
+   */
+  getDepartments(search?: string): Observable<any> {
+    return this.http.get<any>(`${this.Base_url}/departments`);
   }
 
   /**

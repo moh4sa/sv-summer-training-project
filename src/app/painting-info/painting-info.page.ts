@@ -83,6 +83,7 @@ export class PaintingInfoPage implements OnInit {
   constructor() {}
   ngOnInit() {
     this.paintingObject = this.router.getCurrentNavigation()?.extras.state;
+    this.commentForm.get('item_id')?.setValue(this.paintingObject.objectID);
     this.getComments();
   }
 

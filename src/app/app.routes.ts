@@ -7,6 +7,16 @@ export const routes: Routes = [
   },
   {
     path: 'painting-info',
-    loadComponent: () => import('./painting-info/painting-info.page').then( m => m.PaintingInfoPage)
+    loadComponent: () =>
+      import('./painting-info/painting-info.page').then(
+        (m) => m.PaintingInfoPage
+      ),
+  },
+  {
+    path: 'department-objects',
+    loadComponent: () =>
+      import('./departments/department-objects/department-objects.page').then(
+        (m) => m.DepartmentObjectsPage
+      ),
   },
 ];

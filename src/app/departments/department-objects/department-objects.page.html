@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button
+      slot="start"
+      defaultHref="/tabs/departments"
+    ></ion-back-button>
+    <ion-title> {{ departmentName }} Department</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (isLoading) {
+  <ion-card>
+    <ion-thumbnail>
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-card-header>
+      <ion-grid [fixed]="true">
+        <ion-row class="ion-justify-content-between">
+          <ion-col size="8">
+            <ion-card-title
+              ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+            ></ion-card-title>
+          </ion-col>
+          <ion-col size="1">
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-card-subtitle
+        ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+      ></ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-thumbnail>
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-card-header>
+      <ion-grid [fixed]="true">
+        <ion-row class="ion-justify-content-between">
+          <ion-col size="8">
+            <ion-card-title
+              ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+            ></ion-card-title>
+          </ion-col>
+          <ion-col size="1">
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-card-subtitle
+        ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+      ></ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  } @else { @if(objects.length > 0) { @for(item of objects; track item) {
+  @if(!hiddenObjectIds.has(item)) {
+  <app-painting-card
+    [objectId]="item"
+    (destroyMe)="onPaintingCardDestroyed(item)"
+  ></app-painting-card>
+  } } } @else {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>No results found</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  } } @if(objects.length < allObjectIds.length && !isLoading &&
+  visiblePaintingCards <= 2) {
+  <div class="ion-text-center ion-padding">
+    <ion-button expand="block" (click)="loadMore()">Load More</ion-button>
+  </div>
+  }
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -17,6 +17,13 @@ export const routes: Routes = [
           import('../likes/likes.page').then((m) => m.LikesPage),
       },
       {
+        path: 'departments',
+        loadComponent: () =>
+          import('../departments/departments.page').then(
+            (m) => m.DepartmentsPage
+          ),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',

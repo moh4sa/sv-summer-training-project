@@ -1,53 +1,91 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title> MM Museum Paintings </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  @for (item of objects; track $index) {
+  <ion-searchbar
+    animated="true"
+    show-clear-button="focus"
+    placeholder="search for art"
+    [debounce]="1000"
+    (ionInput)="handleInput($event)"
+  ></ion-searchbar>
+  @if (isLoading) {
+    <ion-card>
+      <ion-thumbnail>
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-card-header>
+        <ion-grid [fixed]="true">
+          <ion-row class="ion-justify-content-between">
+            <ion-col size="8">
+              <ion-card-title
+                ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+              ></ion-card-title>
+            </ion-col>
+            <ion-col size="1">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-card-subtitle
+          ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+        ></ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-thumbnail>
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-card-header>
+        <ion-grid [fixed]="true">
+          <ion-row class="ion-justify-content-between">
+            <ion-col size="8">
+              <ion-card-title
+                ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+              ></ion-card-title>
+            </ion-col>
+            <ion-col size="1">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-card-subtitle
+          ><ion-skeleton-text [animated]="true"></ion-skeleton-text
+        ></ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  } @else { @if(objects.length > 0) { @for(item of objects; track item) {
   <app-painting-card [objectId]="item"></app-painting-card>
-  } @empty {
-  <ion-card>
-    <ion-thumbnail>
-      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-    </ion-thumbnail>
+  } } @else {
+  <ion-card
+    class="no-results-card"
+    style="text-align: center; margin-top: 2rem; box-shadow: none;"
+  >
     <ion-card-header>
-      <ion-grid [fixed]="true">
-        <ion-row class="ion-justify-content-between">
-          <ion-col size="8">
-            <ion-card-title><ion-skeleton-text [animated]="true"></ion-skeleton-text></ion-card-title>
-          </ion-col>
-          <ion-col size="1">
-            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-card-subtitle><ion-skeleton-text [animated]="true"></ion-skeleton-text></ion-card-subtitle>
+      <ion-icon
+        name="search-outline"
+        style="
+          font-size: 3rem;
+          color: var(--ion-color-medium);
+          margin-left: auto;
+          margin-right: auto;
+        "
+      ></ion-icon>
+      <ion-card-title>No results found</ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      Try adjusting your search or filters
+    </ion-card-content>
   </ion-card>
-  <ion-card>
-    <ion-thumbnail>
-      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-    </ion-thumbnail>
-    <ion-card-header>
-      <ion-grid [fixed]="true">
-        <ion-row class="ion-justify-content-between">
-          <ion-col size="8">
-            <ion-card-title><ion-skeleton-text [animated]="true"></ion-skeleton-text></ion-card-title>
-          </ion-col>
-          <ion-col size="1">
-            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-card-subtitle><ion-skeleton-text [animated]="true"></ion-skeleton-text></ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
-  }
+  } }
 
-
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

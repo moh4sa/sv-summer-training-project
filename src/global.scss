@@ -35,3 +35,16 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+ion-loading.loading {
+  .loading-wrapper {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+ion-spinner.sc-ion-loading-md {
+  width: 4rem;
+  height: 4rem;
+}

@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject, input, OnInit } from '@angular/core';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonCard,
@@ -39,8 +39,8 @@ import { ApiService } from 'src/app/services/api.service';
     IonCardTitle,
     IonCardHeader,
     IonCard,
-    IonThumbnail,
     AsyncPipe,
+    NgOptimizedImage,
   ],
 })
 export class PaintingCardComponent implements OnInit {
@@ -48,6 +48,7 @@ export class PaintingCardComponent implements OnInit {
   private router = inject(Router);
   private api = inject(ApiService);
   objectId = input.required<number>();
+  destroyMe = output<void>();
   paintingObject!: any;
   currentUrl: string = this.router.url;
   numberOfLikes$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -56,12 +57,26 @@ export class PaintingCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getPaintingObject(this.objectId()).subscribe((response) => {
-      //console.log(response);
-      if (!response.primaryImageSmall) {
-        return;
-      }
-      this.paintingObject = response;
+    this.api.getPaintingObject(this.objectId()).subscribe({
+      next: (response) => {
+        if (!response?.primaryImageSmall) {
+          console.warn(
+            `(ID: ${this.objectId()}): Painting object is missing an image. Component will be destroyed.`
+          );
+          this.destroyMe.emit();
+          return;
+        }
+        this.paintingObject = {
+          ...response,
+          title: response.title?.trim() || 'Untitled',
+        };
+      },
+      error: (error) => {
+        console.error(
+          `(ID: ${this.objectId()}): Error fetching item details ${error}`
+        );
+        this.destroyMe.emit(); // Emit destroyMe on API error
+      },
     });
     this.isPaintingLiked(this.objectId());
     this.fetchLikes();
